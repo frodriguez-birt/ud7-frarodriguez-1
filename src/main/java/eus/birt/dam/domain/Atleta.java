@@ -1,10 +1,17 @@
 package eus.birt.dam.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,7 +24,13 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Table(name="atleta")
-public class Atleta extends BaseEntity {
+public class Atleta implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long id;
 
 	@Column(name="nombre")
 	private String nombre;
@@ -31,10 +44,12 @@ public class Atleta extends BaseEntity {
 	@Column(name="edad")
 	private int edad;
 	
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn (name = "id_equipo")
 	private Equipo equipo;
 	
+	@JsonBackReference
 	@ManyToOne 
 	@JoinColumn (name = "id_entrenador")
 	private Entrenador entrenador;

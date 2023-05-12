@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import eus.birt.dam.domain.Equipo;
 
-public interface EquipoRepository extends JpaRepository <Equipo,Integer>{
+public interface EquipoRepository extends JpaRepository <Equipo,Long>{
 
 }

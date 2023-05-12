@@ -1,13 +1,19 @@
 package eus.birt.dam.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,9 +26,13 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Table(name="equipo")
-public class Equipo extends BaseEntity {
+public class Equipo implements Serializable {
 	
-	
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long id;
 
 	@Column(name="nombre")
 	private String nombre;
@@ -33,6 +43,7 @@ public class Equipo extends BaseEntity {
 	@Column(name="presupuesto")
 	private Double presupuesto;
 	
+	@JsonManagedReference
 	@OneToMany (mappedBy = "equipo",cascade = CascadeType.ALL)
 	private List <Atleta> atletas = new ArrayList<>();
 	
